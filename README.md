@@ -18,13 +18,13 @@ Open `index.html` in a browser, or serve the folder with a simple local server s
 
 ## Editing content
 
-Open `data/portfolio-data.js` to change personal information, skills, education, and social links. Add a project by copying the project object in `projects`. Add certificates and achievements by copying the commented examples in their arrays. The page automatically creates the cards from those arrays.
+Open `data/portfolio-data.js` to change personal information, skills, education, and social links. Add a project by copying the project object in `projects`. Certificate entries use an image path and can include verified `title`, `platform`, and `date` values; selecting a certificate opens a larger image preview. Add achievements by copying the example in its array. The page automatically creates the cards from those arrays.
 
 The current `assets/profile.svg` is a neutral monogram placeholder, not a real person's photograph. Replace its source in `index.html` with Haarika's own profile image when available. The `Preview a photo` control can temporarily show a local image in your browser; it does not upload or save the file. Permanent deployed uploads require a backend or storage service.
 
 ## Included interactions
 
-JavaScript powers the typing animation, scroll reveal, active navigation, mobile menu, project filtering, project details modal, theme toggle, localStorage theme preference, back-to-top control, and contact form validation.
+JavaScript powers the typing animation, scroll reveal, active navigation, mobile menu, project filtering and details modal, certificate image previews, theme toggle, localStorage theme preference, back-to-top control, and contact form validation.
 
 The contact form is intentionally honest: it validates locally but does not send email. Real delivery needs a backend or a service such as Formspree, Netlify Forms, or a custom API.
 

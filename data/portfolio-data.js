@@ -35,18 +35,36 @@ const portfolioData = {
     // Add another project here using the same shape.
   ],
   certificates: [
-    // Add only certificates you have actually completed.
-    // { title: "Actual certificate title", platform: "Actual platform", date: "Completion date", description: "Actual description", image: "assets/certificates/your-file.jpg", link: "Actual verification URL" }
+    // Add optional title, platform, and date fields only when their details are verified.
+    { image: "assets/certificates/coursera ddco.jpeg" },
+    { image: "assets/certificates/coursera dsa.jpeg" },
+    { image: "assets/certificates/IBM ai fundamentals.jpeg" },
+    { image: "assets/certificates/IBM data literacy.jpeg" },
+    { image: "assets/certificates/IBM foundations.jpeg" },
+    { image: "assets/certificates/infosys ddco.jpeg" },
+    { image: "assets/certificates/infosys dsa 1.jpeg" },
+    { image: "assets/certificates/infosys dsa.jpeg" }
   ],
   achievements: [
-    // Add only achievements you can verify. Set result to "1st Prize" only when applicable.
-    // { title: "Actual achievement title", event: "Actual event", organization: "Actual organization", date: "Actual date", description: "Actual description", result: "1st Prize", image: "assets/achievements/your-file.jpg" }
+    
+  
+  {
+    title: "Sai Taranga — Article Publication & Appreciation",
+    event: "Sai Taranga",
+    description: "Article publication and appreciation received as part of the same event.",
+    images: [
+      "assets/certificates/sai taranga article publication cert.jpeg",
+      "assets/certificates/sai taranga appreciation cert.jpeg"
+    ]
+  }
+
+
   ],
   education: [
     { title: "Engineering — Artificial Intelligence & Machine Learning", institution: "Sri Sai Ram College of Engineering", detail: "Visvesvaraya Technological University (VTU)", status: "Currently in 2nd Year" }
   ],
   social: {
-    email: "",
+    email: "haarika1925@gmail.com",
     github: "",
     linkedin: ""
   }

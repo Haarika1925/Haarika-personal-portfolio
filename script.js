@@ -20,10 +20,67 @@ document.addEventListener('DOMContentLoaded', () => {
   $$('.filter-btn').forEach((button) => button.addEventListener('click', () => { $$('.filter-btn').forEach((item) => item.classList.remove('active')); button.classList.add('active'); renderProjects(button.dataset.filter); }));
 
   const renderEmpty = (items, type) => {
-    if (!items.length) return `<article class="empty-card reveal"><div class="empty-plus">+</div><h3>Add your ${type}</h3><p>Edit <strong>data/portfolio-data.js</strong> to add your first ${type}.</p></article>`;
-    return items.map((item) => `<article class="empty-card reveal">${item.result ? `<span class="tag">${item.result}</span>` : ''}<h3>${item.title}</h3><p>${item.platform || item.event || ''}${item.date ? ` · ${item.date}` : ''}</p><p>${item.description || ''}</p></article>`).join('');
+  if (!items.length) {
+    return `<article class="empty-card reveal">
+      <div class="empty-plus">+</div>
+      <h3>Add your ${type}</h3>
+      <p>Edit <strong>data/portfolio-data.js</strong> to add your first ${type}.</p>
+    </article>`;
+  }
+
+  return items.map((item) => `
+    <article class="empty-card reveal">
+      ${item.result ? `<span class="tag">${item.result}</span>` : ''}
+      <h3>${item.title}</h3>
+      <p>${item.platform || item.event || ''}${item.date ? ` · ${item.date}` : ''}</p>
+      <p>${item.description || ''}</p>
+
+      ${item.images ? `
+        <div class="achievement-images">
+          ${item.images.map((image) => `
+            <img src="${image}" alt="${item.title}" class="achievement-image">
+          `).join('')}
+        </div>
+      ` : item.image ? `
+        <img src="${item.image}" alt="${item.title}" class="achievement-image">
+      ` : ''}
+    </article>
+  `).join('');
+
   };
-  $('#certificates-grid').innerHTML = renderEmpty(data.certificates, 'certificate');
+  const certificatesGrid = $('#certificates-grid');
+  certificatesGrid.innerHTML = data.certificates.map((certificate, index) => {
+    const details = [certificate.platform, certificate.date].filter(Boolean).join(' · ');
+    return `<article class="certificate-card reveal"><button class="certificate-image-button" type="button" data-certificate="${index}" aria-label="View certificate image ${index + 1}"><img src="${certificate.image}" alt="${certificate.title || 'Certificate image'}" loading="lazy"></button>${certificate.title || details ? `<div class="certificate-copy">${certificate.title ? `<h3>${certificate.title}</h3>` : ''}${details ? `<p>${details}</p>` : ''}</div>` : ''}</article>`;
+  }).join('');
+  const certificateModal = $('#certificate-modal');
+  const certificateModalImage = $('#certificate-modal-image');
+  const certificateModalTitle = $('#certificate-modal-title');
+  let certificateTrigger;
+  const closeCertificateModal = () => {
+    certificateModal.classList.remove('open');
+    certificateModal.setAttribute('aria-hidden', 'true');
+    if (certificateTrigger?.isConnected) certificateTrigger.focus();
+  };
+  certificatesGrid.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-certificate]');
+    if (!trigger) return;
+    const certificate = data.certificates[Number(trigger.dataset.certificate)];
+    certificateTrigger = trigger;
+    certificateModalImage.src = certificate.image;
+    certificateModalImage.alt = certificate.title || 'Certificate image';
+    certificateModalTitle.textContent = certificate.title || 'Certificate preview';
+    certificateModal.classList.add('open');
+    certificateModal.setAttribute('aria-hidden', 'false');
+    $('.certificate-modal-close', certificateModal).focus();
+  });
+  $('.certificate-modal-close', certificateModal).addEventListener('click', closeCertificateModal);
+  certificateModal.addEventListener('click', (event) => {
+    if (event.target === certificateModal) closeCertificateModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && certificateModal.classList.contains('open')) closeCertificateModal();
+  });
   $('#achievements-grid').innerHTML = renderEmpty(data.achievements, 'achievement');
   $('#education-list').innerHTML = data.education.map((item) => `<article class="education-item reveal"><div class="education-card"><p class="education-status">${item.status}</p><h3>${item.title}</h3><p>${item.institution}</p><p>${item.detail}</p></div></article>`).join('');
   $$('[data-social]').forEach((link) => { const value = data.social[link.dataset.social]; if (value) { link.href = link.dataset.social === 'email' ? `mailto:${value}` : value; } else { link.removeAttribute('href'); link.classList.add('unavailable'); link.querySelector('span').textContent = 'add link'; } });
