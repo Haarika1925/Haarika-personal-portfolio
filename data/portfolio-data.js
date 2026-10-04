@@ -65,7 +65,7 @@ const portfolioData = {
   ],
   social: {
     email: "haarika1925@gmail.com",
-    github: "",
-    linkedin: ""
+    github: "https://github.com/Haarika1925",
+    linkedin: "https://www.linkedin.com/in/haarika-s-gowda-ba4189385/"
   }
 };
